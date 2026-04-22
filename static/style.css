@@ -246,3 +246,107 @@ button:hover {
     background: #ef4444;
     color: white;
 }
+
+/* 認証ページ共通レイアウト */
+.auth-container {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.auth-container h1 {
+    font-size: 2rem;
+    color: #a78bfa;
+    margin-bottom: 8px;
+}
+
+.auth-container h2 {
+    font-size: 1.2rem;
+    color: #888;
+    margin-bottom: 32px;
+    font-weight: normal;
+}
+
+/* 入力フォーム */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid #333;
+    border-radius: 30px;
+    background: #1a1a2e;
+    color: #e0e0ff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: #a78bfa;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+/* エラーメッセージ */
+.error-message {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+/* リンク */
+.auth-link {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.auth-link a {
+    color: #a78bfa;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* ゲストリンク */
+.guest-link {
+    margin-top: 16px;
+}
+
+.guest-link a {
+    color: #555;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.guest-link a:hover {
+    color: #a78bfa;
+}
+
+/* ゲストノート */
+.guest-note {
+    color: #888;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.guest-note a {
+    color: #a78bfa;
+    text-decoration: none;
+}

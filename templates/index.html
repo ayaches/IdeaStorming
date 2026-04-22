@@ -32,6 +32,12 @@
         let currentKeyword = "";
         let currentResult = null;
 
+// ゲストモードかどうかを確認する
+const isGuest = {{ 'true' if is_guest else 'false' }};
+
+// ゲストモードの場合はAPIエンドポイントを変える
+const brainstormUrl = isGuest ? "/brainstorm/guest" : "/brainstorm";
+
         // ページ読み込み時に履歴を取得する
         window.onload = function() {
             loadHistory();
@@ -54,7 +60,7 @@
             currentResult = null;
 
             // バックエンドにキーワードを送信する
-            const response = await fetch("/brainstorm", {
+            const response = await fetch(brainstormUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ keyword: keyword })

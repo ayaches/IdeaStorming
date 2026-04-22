@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録 - IdeaStorming</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="auth-container">
+        <h1>💡 IdeaStorming</h1>
+        <h2>新規登録</h2>
+
+        <!-- エラーメッセージ表示エリア -->
+        <div id="error-message" class="error-message" style="display:none;"></div>
+
+        <!-- 登録フォーム -->
+        <div class="auth-form">
+            <input type="email" id="email" placeholder="メールアドレス">
+            <input type="password" id="password" placeholder="パスワード">
+            <input type="password" id="password-confirm" placeholder="パスワード（確認）">
+            <button onclick="register()">新規登録</button>
+        </div>
+
+        <p class="auth-link">
+            すでにアカウントをお持ちの方は
+            <a href="/login">ログイン</a>
+        </p>
+    </div>
+
+    <script>
+        async function register() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const passwordConfirm = document.getElementById("password-confirm").value;
+            const errorDiv = document.getElementById("error-message");
+
+            // 入力が空の場合は処理しない
+            if (!email || !password || !passwordConfirm) {
+                errorDiv.textContent = "すべての項目を入力してください";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            // パスワードが一致しているか確認する
+            if (password !== passwordConfirm) {
+                errorDiv.textContent = "パスワードが一致しません";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            // バックエンドに登録情報を送信する
+            const response = await fetch("/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: email, password: password })
+            });
+
+            const data = await response.json();
+
+            // エラーが返ってきた場合はメッセージを表示する
+            if (data.error) {
+                errorDiv.textContent = data.error;
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            // 登録成功したらログインページに移動する
+            alert("登録が完了しました！ログインしてください。");
+            window.location.href = "/login";
+        }
+    </script>
+</body>
+</html>
