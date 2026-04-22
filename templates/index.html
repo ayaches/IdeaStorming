@@ -21,7 +21,23 @@
     <!-- 結果表示エリア -->
     <div id="result"></div>
 
+    <!-- 履歴エリア -->
+    <div class="history-area">
+        <h2>📂 保存済みプロジェクト</h2>
+        <div id="history-list"></div>
+    </div>
+
     <script>
+        // 現在の結果を保持する変数
+        let currentKeyword = "";
+        let currentResult = null;
+
+        // ページ読み込み時に履歴を取得する
+        window.onload = function() {
+            loadHistory();
+        };
+
+        // ブレインストームを実行する
         async function brainstorm() {
             const keyword = document.getElementById("keyword").value;
             const resultDiv = document.getElementById("result");
@@ -34,6 +50,8 @@
 
             // ローディング表示
             resultDiv.innerHTML = "<p class='loading'>考え中...🤔</p>";
+            currentKeyword = keyword;
+            currentResult = null;
 
             // バックエンドにキーワードを送信する
             const response = await fetch("/brainstorm", {
@@ -57,6 +75,9 @@
                 return;
             }
 
+            // 結果を保持しておく
+            currentResult = data;
+
             // ロジックツリー形式でHTMLを組み立てる
             let html = `
                 <div class="tree">
@@ -77,7 +98,92 @@
             }
 
             html += `</div></div>`;
+
+            // 保存ボタンを追加する
+            html += `
+                <div class="save-area">
+                    <button class="save-btn" onclick="saveProject()">💾 この結果を保存する</button>
+                </div>
+            `;
+
             resultDiv.innerHTML = html;
+        }
+
+        // 結果を保存する
+        async function saveProject() {
+            if (!currentKeyword || !currentResult) {
+                alert("保存するデータがありません");
+                return;
+            }
+
+            const response = await fetch("/save", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    keyword: currentKeyword,
+                    result: currentResult
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert("保存に失敗しました");
+                return;
+            }
+
+            alert("保存しました！");
+
+            // 履歴を再読み込みする
+            loadHistory();
+        }
+
+        // 履歴一覧を取得して表示する
+        async function loadHistory() {
+            const response = await fetch("/projects");
+            const projects = await response.json();
+            const historyList = document.getElementById("history-list");
+
+            if (projects.length === 0) {
+                historyList.innerHTML = "<p class='no-history'>保存済みのプロジェクトはありません</p>";
+                return;
+            }
+
+            let html = "";
+            for (const project of projects) {
+                html += `
+                    <div class="history-item" id="project-${project.id}">
+                        <div class="history-info">
+                            <span class="history-keyword">${project.keyword}</span>
+                            <span class="history-date">${project.created_at}</span>
+                        </div>
+                        <button class="delete-btn" onclick="deleteProject(${project.id})">🗑️ 削除</button>
+                    </div>
+                `;
+            }
+
+            historyList.innerHTML = html;
+        }
+
+        // プロジェクトを削除する
+        async function deleteProject(projectId) {
+            if (!confirm("このプロジェクトを削除しますか？")) {
+                return;
+            }
+
+            const response = await fetch(`/projects/${projectId}`, {
+                method: "DELETE"
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert("削除に失敗しました");
+                return;
+            }
+
+            // 削除したアイテムを画面から消す
+            document.getElementById(`project-${projectId}`).remove();
         }
     </script>
 </body>

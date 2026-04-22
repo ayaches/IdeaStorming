@@ -166,3 +166,83 @@ button:hover {
     border-bottom: none;
 }
 
+/* 保存ボタンエリア */
+.save-area {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.save-btn {
+    background: #22c55e;
+    padding: 14px 36px;
+    font-size: 1rem;
+    border-radius: 30px;
+}
+
+.save-btn:hover {
+    background: #16a34a;
+}
+
+/* 履歴エリア */
+.history-area {
+    max-width: 700px;
+    margin: 60px auto 40px;
+    padding: 0 20px;
+}
+
+.history-area h2 {
+    color: #a78bfa;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.no-history {
+    color: #555;
+    text-align: center;
+}
+
+/* 履歴アイテム */
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+}
+
+.history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-keyword {
+    font-size: 1rem;
+    color: #e0e0ff;
+    font-weight: bold;
+}
+
+.history-date {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* 削除ボタン */
+.delete-btn {
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}
