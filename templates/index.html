@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaStorming</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- 入力エリア -->
+    <div class="input-area">
+        <h1>💡 IdeaStorming</h1>
+        <p>キーワードを入力してブレインストームを始めよう</p>
+        <div class="input-row">
+            <input type="text" id="keyword" placeholder="例：カフェ、旅行、AI...">
+            <button onclick="brainstorm()">ブレインストーム</button>
+        </div>
+    </div>
+
+    <!-- 結果表示エリア -->
+    <div id="result"></div>
+
+    <script>
+        async function brainstorm() {
+            const keyword = document.getElementById("keyword").value;
+            const resultDiv = document.getElementById("result");
+
+            // 入力が空の場合は処理しない
+            if (!keyword) {
+                alert("キーワードを入力してください");
+                return;
+            }
+
+            // ローディング表示
+            resultDiv.innerHTML = "<p class='loading'>考え中...🤔</p>";
+
+            // バックエンドにキーワードを送信する
+            const response = await fetch("/brainstorm", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ keyword: keyword })
+            });
+
+            const data = await response.json();
+
+            // エラーが返ってきた場合はメッセージを表示する
+            if (data.error) {
+                resultDiv.innerHTML = `
+                    <div class="error-box">
+                        <p>⚠️ ${data.message}</p>
+                        <p class="error-note">
+                            ※ 無料版のAPIを使用しているため、混雑時やリクエスト上限時にエラーが発生することがあります。ご了承ください。
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            // ロジックツリー形式でHTMLを組み立てる
+            let html = `
+                <div class="tree">
+                    <div class="tree-center">${keyword}</div>
+                    <div class="tree-branches">
+            `;
+
+            for (const category of data.categories) {
+                html += `
+                    <div class="branch">
+                        <div class="category-label">${category.name}</div>
+                        <ul class="ideas-list">
+                `;
+                for (const idea of category.ideas) {
+                    html += `<li class="idea-item">${idea}</li>`;
+                }
+                html += `</ul></div>`;
+            }
+
+            html += `</div></div>`;
+            resultDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

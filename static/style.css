@@ -1,0 +1,168 @@
+/* 全体のレイアウト */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #0f0f1a;
+    color: #e0e0ff;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* 入力エリア */
+.input-area {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.input-area h1 {
+    font-size: 2.5rem;
+    color: #a78bfa;
+    margin-bottom: 10px;
+}
+
+.input-area p {
+    color: #888;
+    margin-bottom: 24px;
+}
+
+.input-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+input {
+    padding: 12px 20px;
+    width: 340px;
+    border: 2px solid #a78bfa;
+    border-radius: 30px;
+    background: #1a1a2e;
+    color: #e0e0ff;
+    font-size: 1rem;
+    outline: none;
+}
+
+input::placeholder {
+    color: #555;
+}
+
+button {
+    padding: 12px 28px;
+    background: #a78bfa;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #7c3aed;
+}
+
+/* ローディング */
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #a78bfa;
+    margin-top: 40px;
+}
+
+/* エラーボックス */
+.error-box {
+    max-width: 500px;
+    margin: 40px auto;
+    border: 1px solid orange;
+    border-radius: 10px;
+    padding: 20px;
+    color: orange;
+    text-align: center;
+}
+
+.error-note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* ロジックツリー全体 */
+.tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* 中心キーワード */
+.tree-center {
+    background: #a78bfa;
+    color: white;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+}
+
+/* カテゴリの横並びエリア */
+.tree-branches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+}
+
+/* 各カテゴリブランチ */
+.branch {
+    background: #1a1a2e;
+    border: 1px solid #a78bfa;
+    border-radius: 16px;
+    padding: 20px;
+    width: 220px;
+    transition: transform 0.3s;
+}
+
+.branch:hover {
+    transform: translateY(-6px);
+}
+
+/* カテゴリ名 */
+.category-label {
+    color: #a78bfa;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+/* アイデアリスト */
+.ideas-list {
+    list-style: none;
+    padding: 0;
+}
+
+.idea-item {
+    font-size: 0.85rem;
+    color: #ccc;
+    padding: 6px 0;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.idea-item:hover {
+    color: #a78bfa;
+}
+
+.idea-item:last-child {
+    border-bottom: none;
+}
+
