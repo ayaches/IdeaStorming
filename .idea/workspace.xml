@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a377f0db-53b5-4c93-a0b0-487673fca596" name="変更" comment="第5スプリント完了">
+    <list default="true" id="a377f0db-53b5-4c93-a0b0-487673fca596" name="変更" comment="Remove API key and delete gitignore from .venv">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,6 +116,7 @@
       <workItem from="1776842400295" duration="575000" />
       <workItem from="1776906312330" duration="545000" />
       <workItem from="1776909621889" duration="1272000" />
+      <workItem from="1776924873178" duration="920000" />
     </task>
     <task id="LOCAL-00001" summary="初回コミット">
       <option name="closed" value="true" />
@@ -148,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776841557891</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Remove API key and delete gitignore from .venv">
+      <option name="closed" value="true" />
+      <created>1776925085888</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1776925085891</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +180,8 @@
     <MESSAGE value="保存・削除機能を追加" />
     <MESSAGE value="ログイン機能と、ゲスト利用の機能を追加" />
     <MESSAGE value="第5スプリント完了" />
-    <option name="LAST_COMMIT_MESSAGE" value="第5スプリント完了" />
+    <MESSAGE value="Remove API key and delete gitignore from .venv" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove API key and delete gitignore from .venv" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/IdeaStorming$IdeaStorming.coverage" NAME="IdeaStorming のカバレッジ結果" MODIFIED="1776839665924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
