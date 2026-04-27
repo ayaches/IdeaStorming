@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a377f0db-53b5-4c93-a0b0-487673fca596" name="変更" comment="Remove API key and delete gitignore from .venv">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +115,7 @@
       <workItem from="1776842400295" duration="575000" />
       <workItem from="1776906312330" duration="545000" />
       <workItem from="1776909621889" duration="1272000" />
-      <workItem from="1776924873178" duration="920000" />
+      <workItem from="1776924873178" duration="1604000" />
     </task>
     <task id="LOCAL-00001" summary="初回コミット">
       <option name="closed" value="true" />
