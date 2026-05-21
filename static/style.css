@@ -1,0 +1,352 @@
+/* 全体のレイアウト */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #0f0f1a;
+    color: #e0e0ff;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* 入力エリア */
+.input-area {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.input-area h1 {
+    font-size: 2.5rem;
+    color: #a78bfa;
+    margin-bottom: 10px;
+}
+
+.input-area p {
+    color: #888;
+    margin-bottom: 24px;
+}
+
+.input-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+input {
+    padding: 12px 20px;
+    width: 340px;
+    border: 2px solid #a78bfa;
+    border-radius: 30px;
+    background: #1a1a2e;
+    color: #e0e0ff;
+    font-size: 1rem;
+    outline: none;
+}
+
+input::placeholder {
+    color: #555;
+}
+
+button {
+    padding: 12px 28px;
+    background: #a78bfa;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #7c3aed;
+}
+
+/* ローディング */
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #a78bfa;
+    margin-top: 40px;
+}
+
+/* エラーボックス */
+.error-box {
+    max-width: 500px;
+    margin: 40px auto;
+    border: 1px solid orange;
+    border-radius: 10px;
+    padding: 20px;
+    color: orange;
+    text-align: center;
+}
+
+.error-note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* ロジックツリー全体 */
+.tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* 中心キーワード */
+.tree-center {
+    background: #a78bfa;
+    color: white;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+}
+
+/* カテゴリの横並びエリア */
+.tree-branches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+}
+
+/* 各カテゴリブランチ */
+.branch {
+    background: #1a1a2e;
+    border: 1px solid #a78bfa;
+    border-radius: 16px;
+    padding: 20px;
+    width: 220px;
+    transition: transform 0.3s;
+}
+
+.branch:hover {
+    transform: translateY(-6px);
+}
+
+/* カテゴリ名 */
+.category-label {
+    color: #a78bfa;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+/* アイデアリスト */
+.ideas-list {
+    list-style: none;
+    padding: 0;
+}
+
+.idea-item {
+    font-size: 0.85rem;
+    color: #ccc;
+    padding: 6px 0;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.idea-item:hover {
+    color: #a78bfa;
+}
+
+.idea-item:last-child {
+    border-bottom: none;
+}
+
+/* 保存ボタンエリア */
+.save-area {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.save-btn {
+    background: #22c55e;
+    padding: 14px 36px;
+    font-size: 1rem;
+    border-radius: 30px;
+}
+
+.save-btn:hover {
+    background: #16a34a;
+}
+
+/* 履歴エリア */
+.history-area {
+    max-width: 700px;
+    margin: 60px auto 40px;
+    padding: 0 20px;
+}
+
+.history-area h2 {
+    color: #a78bfa;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.no-history {
+    color: #555;
+    text-align: center;
+}
+
+/* 履歴アイテム */
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+}
+
+.history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-keyword {
+    font-size: 1rem;
+    color: #e0e0ff;
+    font-weight: bold;
+}
+
+.history-date {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* 削除ボタン */
+.delete-btn {
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* 認証ページ共通レイアウト */
+.auth-container {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.auth-container h1 {
+    font-size: 2rem;
+    color: #a78bfa;
+    margin-bottom: 8px;
+}
+
+.auth-container h2 {
+    font-size: 1.2rem;
+    color: #888;
+    margin-bottom: 32px;
+    font-weight: normal;
+}
+
+/* 入力フォーム */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid #333;
+    border-radius: 30px;
+    background: #1a1a2e;
+    color: #e0e0ff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: #a78bfa;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+/* エラーメッセージ */
+.error-message {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+/* リンク */
+.auth-link {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.auth-link a {
+    color: #a78bfa;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* ゲストリンク */
+.guest-link {
+    margin-top: 16px;
+}
+
+.guest-link a {
+    color: #555;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.guest-link a:hover {
+    color: #a78bfa;
+}
+
+/* ゲストノート */
+.guest-note {
+    color: #888;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.guest-note a {
+    color: #a78bfa;
+    text-decoration: none;
+}

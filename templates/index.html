@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaStorming</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- 入力エリア -->
+    <div class="input-area">
+        <h1>💡 IdeaStorming</h1>
+        <p>キーワードを入力してブレインストームを始めよう</p>
+        <div class="input-row">
+            <input type="text" id="keyword" placeholder="例：カフェ、旅行、AI...">
+            <button onclick="brainstorm()">ブレインストーム</button>
+        </div>
+    </div>
+
+    <!-- 結果表示エリア -->
+    <div id="result"></div>
+
+    <!-- 履歴エリア -->
+    <div class="history-area">
+        <h2>📂 保存済みプロジェクト</h2>
+        <div id="history-list"></div>
+    </div>
+
+    <script>
+        const BASE_URL = "{{ base_url }}";
+
+        // 現在の結果を保持する変数
+        let currentKeyword = "";
+        let currentResult = null;
+
+// ゲストモードかどうかを確認する
+const isGuest = {{ 'true' if is_guest else 'false' }};
+
+// ゲストモードの場合はAPIエンドポイントを変える
+const brainstormUrl = isGuest ? BASE_URL + "/brainstorm/guest" : BASE_URL + "/brainstorm";
+
+        // ページ読み込み時に履歴を取得する
+        window.onload = function() {
+            loadHistory();
+        };
+
+        // ブレインストームを実行する
+        async function brainstorm() {
+            const keyword = document.getElementById("keyword").value;
+            const resultDiv = document.getElementById("result");
+
+            // 入力が空の場合は処理しない
+            if (!keyword) {
+                alert("キーワードを入力してください");
+                return;
+            }
+
+            // ローディング表示
+            resultDiv.innerHTML = "<p class='loading'>考え中...🤔</p>";
+            currentKeyword = keyword;
+            currentResult = null;
+
+            // バックエンドにキーワードを送信する
+            const response = await fetch(brainstormUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ keyword: keyword })
+            });
+
+            const data = await response.json();
+
+            // エラーが返ってきた場合はメッセージを表示する
+            if (data.error) {
+                resultDiv.innerHTML = `
+                    <div class="error-box">
+                        <p>⚠️ ${data.message}</p>
+                        <p class="error-note">
+                            ※ 無料版のAPIを使用しているため、混雑時やリクエスト上限時にエラーが発生することがあります。ご了承ください。
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 結果を保持しておく
+            currentResult = data;
+
+            // ロジックツリー形式でHTMLを組み立てる
+            let html = `
+                <div class="tree">
+                    <div class="tree-center">${keyword}</div>
+                    <div class="tree-branches">
+            `;
+
+            for (const category of data.categories) {
+                html += `
+                    <div class="branch">
+                        <div class="category-label">${category.name}</div>
+                        <ul class="ideas-list">
+                `;
+                for (const idea of category.ideas) {
+                    html += `<li class="idea-item">${idea}</li>`;
+                }
+                html += `</ul></div>`;
+            }
+
+            html += `</div></div>`;
+
+            // 保存ボタンを追加する
+            html += `
+                <div class="save-area">
+                    <button class="save-btn" onclick="saveProject()">💾 この結果を保存する</button>
+                </div>
+            `;
+
+            resultDiv.innerHTML = html;
+        }
+
+        // 結果を保存する
+        async function saveProject() {
+            if (!currentKeyword || !currentResult) {
+                alert("保存するデータがありません");
+                return;
+            }
+
+            const response = await fetch(BASE_URL + "/save", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    keyword: currentKeyword,
+                    result: currentResult
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert("保存に失敗しました");
+                return;
+            }
+
+            alert("保存しました！");
+
+            // 履歴を再読み込みする
+            loadHistory();
+        }
+
+        // 履歴一覧を取得して表示する
+        async function loadHistory() {
+            const response = await fetch(BASE_URL + "/projects");
+            const projects = await response.json();
+            const historyList = document.getElementById("history-list");
+
+            if (projects.length === 0) {
+                historyList.innerHTML = "<p class='no-history'>保存済みのプロジェクトはありません</p>";
+                return;
+            }
+
+            let html = "";
+            for (const project of projects) {
+                html += `
+                    <div class="history-item" id="project-${project.id}">
+                        <div class="history-info">
+                            <span class="history-keyword">${project.keyword}</span>
+                            <span class="history-date">${project.created_at}</span>
+                        </div>
+                        <button class="delete-btn" onclick="deleteProject(${project.id})">🗑️ 削除</button>
+                    </div>
+                `;
+            }
+
+            historyList.innerHTML = html;
+        }
+
+        // プロジェクトを削除する
+        async function deleteProject(projectId) {
+            if (!confirm("このプロジェクトを削除しますか？")) {
+                return;
+            }
+
+            const response = await fetch(BASE_URL + `/projects/${projectId}`, {
+                method: "DELETE"
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert("削除に失敗しました");
+                return;
+            }
+
+            // 削除したアイテムを画面から消す
+            document.getElementById(`project-${projectId}`).remove();
+        }
+    </script>
+</body>
+</html>
